@@ -2,10 +2,14 @@
      Supplied by an outer layer? -->
 
 <label for="country">Choose a country</label>
-<select id="country">
+<select id="country" (change)="selectionChanged($event)">
+  <!--
   <option value="canada">Canada</option>
   <option value="unitedstates">United States</option>
   <option value="mexico">Mexico</option>
+  -->
+  <!-- [options]="countries" -->
+  <option *ngFor="let country of countries">{{country}}</option>
 </select>
 
 <div id="results">
