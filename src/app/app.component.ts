@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
 import { mapToMapExpression } from '@angular/compiler/src/render3/util';
 
@@ -44,6 +44,12 @@ export class AppComponent implements OnInit{
     {date: '02/14/2020', numberOfCases: 3}, 
   ];
 
+  hasError = false;
+  inFlight = false;
+  errorType = '';
+  errorMessage = '';
+  firstRow = '';
+
   constructor(private httpClient: HttpClient) {
      
   }
@@ -56,6 +62,8 @@ export class AppComponent implements OnInit{
     console.log('event passed is', event);
     console.log('event.value', event.value);
     console.log('event.target.value', event.target.value);
+    this.hasError = false;
+    this.inFlight = true;
     this.httpClient
     .get<Array<CountryResponse> >(`https://api.covid19api.com/country/${event.target.value}/status/confirmed`)
     .subscribe(data => {
@@ -63,6 +71,20 @@ export class AppComponent implements OnInit{
       this.days = data.map(function(elt) {return {date: elt.Date.substr(0, 10), numberOfCases: elt.Cases};});
       this.days.sort( (a,b) => a.date < b.date ? -1 : 1);
       console.log('days begin', this.days, 'days end');
+      this.hasError = false;
+      this.inFlight = false;
+      this.firstRow = JSON.stringify(data[0]);
+    },
+    error => {
+      if (error.error instanceof ErrorEvent) {
+        this.errorType = 'Network error.';
+        this.errorMessage = error.error;
+      } else {
+        this.errorType = 'Bad response code.';
+        this.errorMessage = error.status;
+      }
+      this.hasError = true;
+      this.inFlight = false;
     });
   }
 

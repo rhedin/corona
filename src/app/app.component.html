@@ -12,6 +12,26 @@
   <option *ngFor="let country of countries" [value]="country.ident">{{country.name}}</option>
 </select>
 
+<div *ngIf="inFlight">
+  Request in flight.
+</div>
+
+<div *ngIf="hasError">
+  <div>
+    {{errorType}}
+  </div>
+  <div>
+    {{errorMessage}}
+  </div>
+</div>
+
+<div>
+  For debug.  First row of returned information:
+</div>
+<div>
+  {{firstRow}}
+</div>
+
 <div id="results">
   <div>
     <span>Date</span>
