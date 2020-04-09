@@ -54,9 +54,6 @@ export class AppComponent implements OnInit{
      
   }
 
-  // What we sent, in one case.  Back end not working correctly? 
-  // Response bore no resemblance to documented response. 
-  // Request URL: https://api.covid19api.com/country/united-states/status/confirmed
   selectionChanged(event: any): void {
     console.log('In selectionChanged.');
     console.log('event passed is', event);
@@ -65,7 +62,7 @@ export class AppComponent implements OnInit{
     this.hasError = false;
     this.inFlight = true;
     this.httpClient
-    .get<Array<CountryResponse> >(`https://api.covid19api.com/country/${event.target.value}/status/confirmed`)
+    .get<Array<CountryResponse> >(`https://api.covid19api.com/total/country/${event.target.value}/status/confirmed`)
     .subscribe(data => {
       console.log('data begin', data, 'data end');
       this.days = data.map(function(elt) {return {date: elt.Date.substr(0, 10), numberOfCases: elt.Cases};});
