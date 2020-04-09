@@ -35,11 +35,11 @@
 </div>
 
 <div id="results">
-  <div>
+  <div class="header">
     <span>Date</span>
     <span>Number of Cases</span>
   </div>
-  <div *ngFor="let day of days">
+  <div class="row-of-data" *ngFor="let day of days">
     <span>{{day.date}}</span>
     <span>{{day.numberOfCases}}</span>
   </div>
