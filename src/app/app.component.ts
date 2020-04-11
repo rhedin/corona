@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { debugOutputAstAsTypeScript } from '@angular/compiler';
 import { mapToMapExpression } from '@angular/compiler/src/render3/util';
+import '@vaadin/vaadin-combo-box';
 
 // Documentation of the api being used. 
 // https://documenter.getpostman.com/view/10808728/SzS8rjbc?version=latest 

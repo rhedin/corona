@@ -1,6 +1,14 @@
 <!-- Weird.  Don't need an <html> or <body> element.
      Supplied by an outer layer? -->
 
+<!-- Checking out Vaadin combobox component. 
+     Don't think I'll keep it though. 
+     Doesn't seem to expect option inside combobox. 
+     Seems to want to load them using Javascript. -->
+<div style="display:none">  <!-- This works, but I don't care for it. -->
+  <vaadin-combo-box label="Choose a country"></vaadin-combo-box>
+</div>
+
 <label for="country">Choose a country</label>
 <select id="country" (change)="selectionChanged($event)">
   <!--
