@@ -30,18 +30,16 @@ interface CountryResponse {
 export class AppComponent implements OnInit{
   title = 'corona';
 
-  // data: Array<Object>;
-
   countries = [
-    {ident: 'canada', name: 'Canada'}, 
-    {ident: 'unitedstates', name: 'United States'}, 
-    {ident:'mexico', name: 'Mexico'}
+    // {ident: 'canada', name: 'Canada'}, 
+    // {ident: 'unitedstates', name: 'United States'}, 
+    // {ident:'mexico', name: 'Mexico'}
   ];
 
   days = [
-    {date:'02/16/2020', numberOfCases: 15},
-    {date: '02/15/2020', numberOfCases: 10}, 
-    {date: '02/14/2020', numberOfCases: 3}, 
+    // {date:'02/16/2020', numberOfCases: 15},
+    // {date: '02/15/2020', numberOfCases: 10}, 
+    // {date: '02/14/2020', numberOfCases: 3}, 
   ];
 
   hasError = false;
@@ -61,13 +59,17 @@ export class AppComponent implements OnInit{
     console.log('event.target.value', event.target.value);
     this.hasError = false;
     this.inFlight = true;
+    this.days = [];
+    this.errorType = '';
+    this.errorMessage = '';
+    this.firstRow = '';
     this.httpClient
     .get<Array<CountryResponse> >(`https://api.covid19api.com/total/country/${event.target.value}/status/confirmed`)
     .subscribe(data => {
-      console.log('data begin', data, 'data end');
+      // console.log('data begin', data, 'data end');
       this.days = data.map(function(elt) {return {date: elt.Date.substr(0, 10), numberOfCases: elt.Cases};});
       this.days.sort( (a,b) => a.date < b.date ? -1 : 1);
-      console.log('days begin', this.days, 'days end');
+      // console.log('days begin', this.days, 'days end');
       this.hasError = false;
       this.inFlight = false;
       this.firstRow = JSON.stringify(data[0]);
@@ -89,10 +91,10 @@ export class AppComponent implements OnInit{
     this.httpClient
     .get<Array<CountriesResponse> >('https://api.covid19api.com/countries')
     .subscribe(data => {
-      console.log('data begin', data, 'data end');
+      // console.log('data begin', data, 'data end');
       this.countries = data.map(function(elt) {return {ident: elt.Slug, name: elt.Country};});
       this.countries.sort( (a,b) => a.name < b.name ? -1 : 1);
-      console.log('countries begin', this.countries, 'countries end');
+      // console.log('countries begin', this.countries, 'countries end');
     });
   }
 }
